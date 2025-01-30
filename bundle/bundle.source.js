@@ -13,10 +13,18 @@ require('jquery.tooltips');
 
 window.Storage = require('js-storage');
 
-require('flot');
-require('../node_modules/flot/jquery.flot.time');
-require('../node_modules/flot/jquery.flot.pie');
-require('../node_modules/flot/jquery.flot.fillbetween');
+// Workaround for modern webpack
+// TODO: find better way to do this?
+import "flot/source/jquery.canvaswrapper"
+import "flot/source/jquery.colorhelpers"
+import "flot/source/jquery.flot"
+import "flot/source/jquery.flot.uiConstants"
+const flotReq = require.context("../node_modules/flot/source/", true, /flot.*\.js$/)
+flotReq.keys().forEach(flotReq);
+
+require('../node_modules/flot/source/jquery.flot.time');
+require('../node_modules/flot/source/jquery.flot.pie');
+require('../node_modules/flot/source/jquery.flot.fillbetween');
 
 const moment = require('moment-timezone');
 
